@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Budgt — Regain Control Over Your Money</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  
+    <!-- Here Maps API -->
+    <script src="http://js.api.here.com/v3/3.0/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://js.api.here.com/v3/3.0/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+
+<!-- Reload Button & Account Settings -->
+<!-- Links to reload the list of transaction; and the link to user account settings -->
+<div class="container">
+    <center>
+        <div class="float-left">
+            <a href=""><i class="fas fa-redo"></i></a>
+        </div>
+        <span class="badge badge-pill badge-success">CIBC everyday account</span>
+        <div class="float-right">
+            <a href="./account_settings.html"><i class="fas fa-user"></i></a>
+        </div>
+    </center>
+</div>
+
+<!-- Wallet Balance -->
+<div id="wallet_balance">
+    <h4><center><i class="fas fa-inbox"></i> {{ wallet_balance }}</center></h4>
+</div>
+
+<!-- Donutchart -->
+<div id="donutchart" style="width: 100%;"></div>
+
+<!-- Main Wallet Transactions List -->
+<div class="bd-callout bd-callout-warning">
+    <div id="transactions">
+        <div v-for="(transactions, date) in transactionsByDate">
+            <div class="transactionDate">{{ date }}</div>
+            <table class="table">
+                <tbody id="entrydata">
+                    <tr v-for="t in transactions" @click="selectedT = t" data-toggle="modal" data-target="#tDetails" style="cursor: pointer;">
+                        <td style="width: 10%;">
+                            <img :src="'img/t_categories/' + t.category_icon" style="height: 1.5em;">
+                        </td>
+                        <td style="width: 60%;">
+                            <b>{{ t.name }}</b>
+                        </td>
+                        <td style="text-align: right; width: 20%;">
+                            <span v-if="t.amount >= 0" class="badge badge-pill badge-success">{{ t.amount }}</span>
+                            <span v-if="t.amount < 0" class="badge badge-pill badge-info">{{ t.amount }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Modal for transaction edit -->
+        <div class="modal fade bd-example-modal-lg" id="tDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <!-- <div class="modal-header">
+                    </div> -->
+                    <div class="image-container-map">
+                        <img src="img/maps/demo_map.png" width="100%">
+                    </div>
+                    <table class="table table-borderless">
+                        <tbody id="entrydata">
+                            <tr>
+                                <td>
+                                    <img :src="'img/t_categories/' + selectedT.category_icon" style="height: 1.5em;">
+                                </td>
+                                <td>
+                                    <b>{{ selectedT.name }}</b>
+                                </td>
+                                <td style="text-align: right;">
+                                    <span v-if="selectedT.amount >= 0" class="badge badge-pill badge-success">{{ selectedT.amount }}</span>
+                                    <span v-if="selectedT.amount < 0" class="badge badge-pill badge-info">{{ selectedT.amount }}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <!-- table with params -->
+                                <div>
+                                    <table class="table">
+                                        <tbody id="create-edit-modal">
+                                            <tr>
+                                                <td style="width: 100%;">
+                                                    <label for="transactionName">Transaction name</label>
+                                                    <input type="string" class="form-control" aria-describedby="transactioHelp" placeholder="#Pizza @Dominos w/ friends"
+                                                        v-model="selectedT.name">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 100%;">
+                                                    <label for="value">Amount</label>
+                                                    <input type="value" class="form-control" aria-describedby="valueHelp" placeholder="-20.00" v-model="selectedT.amount">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 100%;">
+                                                    <label for="date">Date</label>
+                                                    <input type="string" class="form-control" aria-describedby="transactioHelp" placeholder="friends, camping, fire" v-model="selectedT.date">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 100%;">
+                                                    <label for="tags">#Tags (separate with comma)</label>
+                                                    <input type="string" class="form-control" aria-describedby="transactioHelp" placeholder="friends, camping, fire"
+                                                        v-model="selectedT.tags">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 100%;">
+                                                    <center>
+                                                        <button data-toggle="button" style="width: 30%;" type="button" class="btn btn-outline-info" v-for="c in categories">
+                                                            <img :src="'img/t_categories/' + c.icon">
+                                                            <p>{{ c.name }}</p>
+                                                        </button>
+                                                    </center>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 100%;">
+                                                    <button type="button" class="btn btn-outline-danger btn-lg btn-block">Delete Transaction</button>
+                                                    <br>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+        
+                            </div>
+                        </div>
+        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-success btn-lg btn-block" data-dismiss="modal">Save Changes</button>
+                        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Save Changes</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+</br>
+
+<!-- Navigation Buttons -->
+<nav class="navbar fixed-bottom navbar-light bg-light">
+    <div class="btn-group btn-group-justified" role="group" aria-label="Justified button group">
+        <a class="btn btn-outline-primary" href="./index.html" role="button"><i class="fas fa-home"></i></a>
+        <a class="btn btn-outline-primary" href="#" role="button"><i class="fas fa-chart-pie"></i></a>
+        <a class="btn btn-outline-primary" href="#" role="button"><i class="fas fa-bullseye"></i></a>
+        <a class="btn btn-outline-primary" href="#" role="button"><i class="fas fa-plus-square"></i></a>
+    </div>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+    crossorigin="anonymous"></script>
+<script src="js/StickyDate.js"></script>
+<script src="js/StickySummary.js"></script>
+<script src="js/transactions.js"></script>
+<script src="js/underscore.js"></script>
+<script src="js/donutchart.js"></script>
+<script src="js/maps.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
+</body>
+</html>
