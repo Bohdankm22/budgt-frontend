@@ -2298,10 +2298,12 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   line-height: 1.5;
   border-radius: 0.25rem;
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
 }
 
 .btn:focus, .btn:hover {
   text-decoration: none;
+    cursor: pointer;
 }
 
 .btn:focus, .btn.focus {

@@ -181,3 +181,13 @@ label {
   font-size: 0.5em;
   font-weight: 300;
 }
+
+.text-muted {
+  color: black !important;
+  font-weight: 300;
+}
+
+label {
+  color: black !important;
+  font-weight: 300;
+}
