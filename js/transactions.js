@@ -1,10 +1,3 @@
-var wallet_balance = new Vue ({
-    el: '#wallet_balance',
-    data: {
-        wallet_balance: "$99,900.00"
-    }
-})
-
 var transactions = new Vue({
     el: '#transactions',
     filters: {
