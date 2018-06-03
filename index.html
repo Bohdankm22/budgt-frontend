@@ -38,19 +38,18 @@
     <!-- Carousel -->
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="0">
         <ol class="carousel-indicators">
-            <li v-for="a in accounts" data-target="#carouselExampleIndicators" v-bind:data-slide-to="accounts.indexOf(t)" class="active"></li>
+            <li v-for="a in accounts" data-target="#carouselExampleIndicators" v-bind:data-slide-to="accounts.indexOf(t)" class=""></li>
+            <li data-target="#carouselExampleIndicators" v-bind:data-slide-to="accounts.length + 1"></li>
         </ol>
         <div class="carousel-inner">
             <div v-for="a in accounts" class="carousel-item" v-bind:class="accounts.indexOf(a) !== 0 ? '' : 'active'">
-                <div class="card text-white bg-primary mb-3 mx-auto" style="max-width: 75%;">
+                <div class="card text-white mb-3 mx-auto" v-bind:class="'bg-' + a.color" style="max-width: 75%; height: 8em;">
                     <div class="card-header">
                         <center>
                             <div class="float-left">
-                                <a href="">
-                                    <i class="fas fa-redo" style="color: black;"></i>
-                                </a>
+                                <b style="color: black;">{{ a.name }}</b>
                             </div>
-                            <span class="badge badge-pill badge-light">{{ a.name }}</span>
+                            <!-- <span class="badge badge-pill badge-light">{{ a.name }}</span> -->
                             <div class="float-right">
                                 <a href="./account_settings.html">
                                     <i class="fas fa-cog" style="color: black;"></i>
@@ -61,9 +60,21 @@
                     <div class="card-body">
                         <h5 class="card-title">
                             <legend style="color: black;">
-                                <i class="fas fa-inbox"></i> {{ a.balance }}
+                                {{ a.balance }}
+                                <p class="subnote">
+                                    Account balance
+                                </p>
                             </legend>
                         </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="card text-white bg-empty mb-3 mx-auto empty" style="max-width: 75%; height: 8em;">
+                    <div class="card-body mx-auto" style="cursor: pointer;">
+                        <div class="container centered">
+                            <b class="card-text align-middle centered" style="color: black">+ Create Account | Pot</b>
+                        </div>
                     </div>
                 </div>
             </div>
