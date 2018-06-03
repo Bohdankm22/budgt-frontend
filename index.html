@@ -25,13 +25,14 @@
                 <i class="fas fa-search"></i>
             </a>
         </div>
-        <div class="float-right">
+        <div class="float-right" style="cursor: pointer;">
             <a href="./account_settings.html">
                 <i class="fas fa-user"></i>
             </a>
         </div>
     </center>
 </div>
+<br>
 
 <!-- Wallet Balance -->
 <div id="financial_accounts">
@@ -49,11 +50,8 @@
                             <div class="float-left">
                                 <b style="color: black;">{{ a.name }}</b>
                             </div>
-                            <!-- <span class="badge badge-pill badge-light">{{ a.name }}</span> -->
-                            <div class="float-right">
-                                <a href="./account_settings.html">
-                                    <i class="fas fa-cog" style="color: black;"></i>
-                                </a>
+                            <div class="float-right" style="cursor: pointer;" @click="selectedA = a" data-toggle="modal" data-target="#aDetails">
+                                <i class="fas fa-cog" style="color: black;"></i>
                             </div>
                         </center>
                     </div>
@@ -71,7 +69,7 @@
             </div>
             <div class="carousel-item">
                 <div class="card text-white bg-empty mb-3 mx-auto empty" style="max-width: 75%; height: 8em;">
-                    <div class="card-body mx-auto" style="cursor: pointer;">
+                    <div class="card-body mx-auto" style="cursor: pointer;" @click="selectedA = []" data-toggle="modal" data-target="#aDetails">
                         <div class="container centered">
                             <b class="card-text align-middle centered" style="color: black">+ Create Account | Pot</b>
                         </div>
@@ -87,6 +85,95 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
+    </div>
+
+    <!-- Modal for financial account create/show/edit -->
+    <div class="modal fade bd-example-modal-lg" id="aDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="carousel-item" v-bind:class="accounts.indexOf(selectedA) !== 0 ? '' : 'active'">
+                    <div class="card text-white mb-3 mx-auto" v-bind:class="'bg-' + selectedA.color" style="max-width: 90%; height: 8em; margin-top: 1em;">
+                        <div class="card-header">
+                            <center>
+                                <div class="float-left">
+                                    <b style="color: black;">{{ selectedA.name }}</b>
+                                </div>
+                            </center>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <legend style="color: black;">
+                                    {{ selectedA.balance }}
+                                    <p class="subnote">
+                                        Account balance
+                                    </p>
+                                </legend>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+    
+                            <!-- table with params -->
+                            <div>
+                                <table class="table">
+                                    <tbody id="create-edit-modal">
+                                        <tr>
+                                            <td style="width: 100%;">
+                                                <label for="accountName">Account name</label>
+                                                <input type="string" class="form-control" aria-describedby="accountHelp" placeholder="My Main Account" v-model="selectedA.name">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 100%;">
+                                                <label for="color">Color</label>
+                                                <br>
+                                                <select class="custom-select custom-select-lg" v-model="selectedA.color">
+                                                    <option value="primary">primary</option>
+                                                    <option value="secondary">secondary</option>
+                                                    <option value="success">success</option>
+                                                    <option value="danger">danger</option>
+                                                    <option value="warning">warning</option>
+                                                    <option value="info">info</option>
+                                                    <option value="light">light</option>
+                                                    <option value="dark">dark</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 100%;">
+                                                <label for="disabledTextInput">Balance</label>
+                                                <input type="disabledTextInput" class="form-control" aria-describedby="valueHelp" placeholder="0.00" v-model="selectedA.balance" disabled>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 100%;">
+                                                <label for="date">Date of inseption</label>
+                                                <input type="string" class="form-control" aria-describedby="transactioHelp" v-bind:placeholder="new Date()" v-model="selectedA.created_at" disabled>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 100%;">
+                                                <button type="button" class="btn btn-outline-danger btn-lg btn-block">Delete Account</button>
+                                                <br>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+    
+                        </div>
+                    </div>
+    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn-lg btn-block" data-dismiss="modal">Save Changes</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

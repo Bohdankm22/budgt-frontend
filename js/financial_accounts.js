@@ -1,6 +1,7 @@
 var financial_accounts = new Vue({
     el: '#financial_accounts',
     data: {
+        selectedA: [],
         accounts: [
             {
                 "id": 1,
