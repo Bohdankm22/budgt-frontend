@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Login into Budgt</title>
+    <title>Singup with Budgt</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -22,7 +22,7 @@
                     <i class="fas fa-search"></i>
                 </a>
             </div>
-            <b>Login</b>
+            <b>Signup</b>
             <div class="float-right" style="cursor: pointer;">
                 <a href="./account_settings.html">
                     <i class="fas fa-user"></i>
@@ -33,14 +33,16 @@
 
     <!-- Login form -->
     <div id="login" class="bd-callout bd-callout-warning" style="padding: 8px;">
-        <h2 v-if="username">Hi {{ username }}!</h2>
-        <h2 v-if="username == ''">Remind us, what was your name?</h2>
+        <h2>Start your 45-day trial!</h2>
+        <small class="text-muted">After the trial you can keep using Budgt; however, you won't be able to add new transactions. Should you wish to pay, it will cost a bit more than a cup of coffee ☕️</small>
+        <br>
+        <br>
         <form>
             <div class="form-group">
                 <label for="exampleInputUsername">Username</label>
-                <input type="username" class="form-control" id="exampleInputUsername" aria-describedby="emailHelp" placeholder="maybe 'Antonio'"
+                <input type="username" class="form-control" id="exampleInputUsername" aria-describedby="emailHelp" placeholder="Antonio"
                     value="Antonio" v-model="username">
-                <small id="emailHelp" class="form-text text-muted">We need your name to check your credentials before you log in securely!</small>
+                <!-- <small id="emailHelp" class="form-text text-muted">We need your name to check your credentials before you log in securely!</small> -->
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -52,10 +54,11 @@
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
-            <button type="button" class="btn btn-primary btn-lg btn-block">I forgot my password!</button>
-            <center><a href="./signup.html" class="mx-auto" style="text-decoration: none; border-bottom: 0.5px solid blue;">Don't have an account? Create one today!</a></center>
+            <center>
+                <a href="#" class="mx-auto" style="text-decoration: none; border-bottom: 0.5px solid blue;">Already have an account? Login!</a>
+            </center>
             <br>
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Get Started!</button>
         </form>
         </br>
     </div>
