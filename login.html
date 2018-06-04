@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Budgt — Regain Control Over Your Money</title>
+    <title>Login into Budgt</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -22,7 +22,7 @@
                     <i class="fas fa-search"></i>
                 </a>
             </div>
-            <b>User Account Settings</b>
+            <b>Login</b>
             <div class="float-right" style="cursor: pointer;">
                 <a href="./account_settings.html">
                     <i class="fas fa-user"></i>
@@ -31,29 +31,31 @@
         </center>
     </div>
 
-    <!-- Main Wallet Transactions List -->
-    <div id="user_account" class="bd-callout bd-callout-warning" style="padding: 8px;">
-        <h2>Hi {{ username }}!</h2>
-        <h4>Account Settings</h4>
+    <!-- Login form -->
+    <div id="login" class="bd-callout bd-callout-warning" style="padding: 8px;">
+        <h2 v-if="username">Hi {{ username }}!</h2>
+        <h2 v-if="username == ''">Remind us, what was your name?</h2>
         <form>
             <div class="form-group">
                 <label for="exampleInputUsername">Username</label>
-                <input type="username" class="form-control" id="exampleInputUsername" aria-describedby="emailHelp" placeholder="Antonio" value="Antonio" v-model="username">
-                <small id="emailHelp" class="form-text text-muted">Nice to meet you!</small>
+                <input type="username" class="form-control" id="exampleInputUsername" aria-describedby="emailHelp" placeholder="maybe 'Antonio'"
+                    value="Antonio" v-model="username">
+                <small id="emailHelp" class="form-text text-muted">We need your name to check your credentials before you log in securely!</small>
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="anton@example.com" v-model="email">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="anton@example.com"
+                    v-model="email">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else. It won't be disclosed and we won't send you any promo emails.</small>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
-            <button type="button" class="btn btn-primary btn-lg btn-block">Logout</button>
-            <button type="button" class="btn btn-danger btn-lg btn-block">Delete Account</button>
+            <button type="button" class="btn btn-primary btn-lg btn-block">I forgot my password!</button>
+            <center><a href="./signup.html" class="mx-auto" style="text-decoration: none; border-bottom: 0.5px solid blue;">Don't have an account? Create one today!</a></center>
             <br>
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Update Information</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
         </form>
         </br>
     </div>
@@ -83,7 +85,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="js/user_account.js"></script>
+    <script src="js/login.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
 </body>
 
