@@ -39,7 +39,7 @@
     <!-- Carousel -->
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="0">
         <ol class="carousel-indicators">
-            <li v-for="a in accounts" data-target="#carouselExampleIndicators" v-bind:data-slide-to="accounts.indexOf(t)" class=""></li>
+            <li v-for="a in accounts" data-target="#carouselExampleIndicators" v-bind:data-slide-to="accounts.indexOf(a)" class=""></li>
             <li data-target="#carouselExampleIndicators" v-bind:data-slide-to="accounts.length + 1"></li>
         </ol>
         <div class="carousel-inner">
@@ -180,11 +180,11 @@
 <!-- Main Wallet Transactions List -->
 <div class="bd-callout bd-callout-warning">
     <div id="transactions">
-        <div v-for="(transactions, date) in transactionsByDate">
+        <div v-for="(groupedTransactions, date) in transactionsByDate">
             <div class="transactionDate">{{ date }}</div>
             <table class="table">
                 <tbody id="entrydata">
-                    <tr v-for="t in transactions" @click="selectedT = t" data-toggle="modal" data-target="#tDetails" style="cursor: pointer;">
+                    <tr v-for="t in groupedTransactions" @click="selectedT = t" data-toggle="modal" data-target="#tDetails" style="cursor: pointer;">
                         <td style="width: 10%;">
                             <img :src="'img/t_categories/' + t.category_icon" style="height: 1.5em;">
                         </td>
@@ -243,7 +243,7 @@
                                             <tr>
                                                 <td style="width: 100%;">
                                                     <label for="value">Amount</label>
-                                                    <input type="value" class="form-control" aria-describedby="valueHelp" placeholder="-20.00" v-model="selectedT.amount">
+                                                    <input type="value" class="form-control" aria-describedby="valueHelp" placeholder="-00.00" v-model="selectedT.amount">
                                                 </td>
                                             </tr>
                                             <tr>
@@ -263,7 +263,7 @@
                                                 <td style="width: 100%;">
                                                     <center>
                                                         <button data-toggle="button" style="width: 30%;" type="button" class="btn btn-outline-info" v-for="c in categories">
-                                                            <img :src="'img/t_categories/' + c.icon">
+                                                            <img :src="'img/t_categories/' + c.icon" style="height: 2em;">
                                                             <p>{{ c.name }}</p>
                                                         </button>
                                                     </center>
@@ -296,12 +296,12 @@
 </br>
 
 <!-- Navigation Buttons -->
-<nav class="navbar fixed-bottom navbar-light bg-light">
+<nav id="navbar" class="navbar fixed-bottom navbar-light bg-light">
     <div class="btn-group btn-group-justified" role="group" aria-label="Justified button group">
         <a class="btn btn-outline-primary" href="./index.html" role="button"><i class="fas fa-home"></i></a>
         <a class="btn btn-outline-primary" href="#" role="button"><i class="fas fa-chart-pie"></i></a>
         <a class="btn btn-outline-primary" href="#" role="button"><i class="fas fa-bullseye"></i></a>
-        <a class="btn btn-outline-primary" href="#" role="button"><i class="fas fa-plus-square"></i></a>
+        <a class="btn btn-outline-primary" href="#" role="button" @click="createT"><i class="fas fa-plus-square"></i></a>
     </div>
 </nav>
 
