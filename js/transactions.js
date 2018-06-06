@@ -622,6 +622,12 @@ var transactions = new Vue({
             return value.toFixed(2);
         }
     },
+    methods: {
+        deleteT: function (transaction) {
+            index = this.transactions.indexOf(transaction)
+            this.transactions.splice(index, 1);
+        }
+    },
     computed: {
         transactionsByDate() {
 
@@ -643,13 +649,6 @@ var transactions = new Vue({
             return result;
         }
     },
-    // mounted() {
-    //     this.transactionsByDate = this.transactions.reduce(function (result, current) {
-    //         result[current.date] = result[current.date] || [];
-    //         result[current.date].push(current);
-    //         return result;
-    //     }, {})
-    // },
     data: {
         selectedT: [],
         transactionValue: [],
