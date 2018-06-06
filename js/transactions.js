@@ -600,7 +600,7 @@ var navbar = new Vue ({
             var mm = today.getMonth() + 1; //January is 0!
             var yyyy = today.getFullYear();
             var date = yyyy + "-" + mm + "-" + dd
-            t = { "date": date, "category": "General", "category_icon": "general.png" }
+            t = { "date": date, "category": "General", "category_icon": "general.png", amount: 0.00 }
             this.transactions.unshift(t)
         }
     },

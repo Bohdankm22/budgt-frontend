@@ -190,6 +190,7 @@
                         </td>
                         <td style="width: 60%;">
                             <b>{{ t.name }}</b>
+                            <b v-show="t.name == nul">...</b>
                         </td>
                         <td style="text-align: right; width: 20%;">
                             <span v-if="t.amount >= 0" class="badge badge-pill badge-success">{{ t.amount }}</span>
@@ -212,13 +213,13 @@
                     <table class="table table-borderless">
                         <tbody id="entrydata">
                             <tr>
-                                <td>
+                                <td style="width: 10%;">
                                     <img :src="'img/t_categories/' + selectedT.category_icon" style="height: 1.5em;">
                                 </td>
-                                <td>
+                                <td style="width: 60%;">
                                     <b>{{ selectedT.name }}</b>
                                 </td>
-                                <td style="text-align: right;">
+                                <td style="text-align: right; width: 20%;">
                                     <span v-if="selectedT.amount >= 0" class="badge badge-pill badge-success">{{ selectedT.amount }}</span>
                                     <span v-if="selectedT.amount < 0" class="badge badge-pill badge-info">{{ selectedT.amount }}</span>
                                 </td>
