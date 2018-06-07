@@ -25,6 +25,7 @@
                 <i class="fas fa-search"></i>
             </a>
         </div>
+        <b>Home Feed</b>
         <div class="float-right" style="cursor: pointer;">
             <a href="./account_settings.html">
                 <i class="fas fa-user"></i>
@@ -32,14 +33,13 @@
         </div>
     </center>
 </div>
-<br>
 
 <!-- Wallet Balance -->
 <div id="financial_accounts">
     <!-- Carousel -->
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="0">
         <ol class="carousel-indicators">
-            <li v-for="a in accounts" data-target="#carouselExampleIndicators" v-bind:data-slide-to="accounts.indexOf(t)" class=""></li>
+            <li v-for="a in accounts" data-target="#carouselExampleIndicators" v-bind:data-slide-to="accounts.indexOf(a)" class=""></li>
             <li data-target="#carouselExampleIndicators" v-bind:data-slide-to="accounts.length + 1"></li>
         </ol>
         <div class="carousel-inner">
@@ -157,6 +157,9 @@
                                         </tr>
                                         <tr>
                                             <td style="width: 100%;">
+                                                <button type="button" class="btn btn-outline-primary btn-lg btn-block" data-dismiss="modal">
+                                                    <i class="fas fa-cloud-upload-alt"></i> Upload transactions in .csv</button>
+                                                <small class="form-text text-muted">You can easily upload all your transactions to your current <b>{{ selectedA.name }}</b> account in .csv format. <a href="">Download sample file</a></small><br>
                                                 <button type="button" class="btn btn-outline-danger btn-lg btn-block">Delete Account</button>
                                                 <br>
                                             </td>
@@ -180,16 +183,17 @@
 <!-- Main Wallet Transactions List -->
 <div class="bd-callout bd-callout-warning">
     <div id="transactions">
-        <div v-for="(transactions, date) in transactionsByDate">
+        <div v-for="(groupedTransactions, date) in transactionsByDate">
             <div class="transactionDate">{{ date }}</div>
             <table class="table">
                 <tbody id="entrydata">
-                    <tr v-for="t in transactions" @click="selectedT = t" data-toggle="modal" data-target="#tDetails" style="cursor: pointer;">
+                    <tr v-for="t in groupedTransactions" @click="selectedT = t" data-toggle="modal" data-target="#tDetails" style="cursor: pointer;">
                         <td style="width: 10%;">
                             <img :src="'img/t_categories/' + t.category_icon" style="height: 1.5em;">
                         </td>
                         <td style="width: 60%;">
                             <b>{{ t.name }}</b>
+                            <b v-show="t.name == nul">...</b>
                         </td>
                         <td style="text-align: right; width: 20%;">
                             <span v-if="t.amount >= 0" class="badge badge-pill badge-success">{{ t.amount }}</span>
@@ -212,13 +216,13 @@
                     <table class="table table-borderless">
                         <tbody id="entrydata">
                             <tr>
-                                <td>
+                                <td style="width: 10%;">
                                     <img :src="'img/t_categories/' + selectedT.category_icon" style="height: 1.5em;">
                                 </td>
-                                <td>
+                                <td style="width: 60%;">
                                     <b>{{ selectedT.name }}</b>
                                 </td>
-                                <td style="text-align: right;">
+                                <td style="text-align: right; width: 20%;">
                                     <span v-if="selectedT.amount >= 0" class="badge badge-pill badge-success">{{ selectedT.amount }}</span>
                                     <span v-if="selectedT.amount < 0" class="badge badge-pill badge-info">{{ selectedT.amount }}</span>
                                 </td>
@@ -243,7 +247,7 @@
                                             <tr>
                                                 <td style="width: 100%;">
                                                     <label for="value">Amount</label>
-                                                    <input type="value" class="form-control" aria-describedby="valueHelp" placeholder="-20.00" v-model="selectedT.amount">
+                                                    <input type="value" class="form-control" aria-describedby="valueHelp" placeholder="-00.00" v-model="selectedT.amount">
                                                 </td>
                                             </tr>
                                             <tr>
@@ -263,7 +267,7 @@
                                                 <td style="width: 100%;">
                                                     <center>
                                                         <button data-toggle="button" style="width: 30%;" type="button" class="btn btn-outline-info" v-for="c in categories">
-                                                            <img :src="'img/t_categories/' + c.icon">
+                                                            <img :src="'img/t_categories/' + c.icon" style="height: 2em;">
                                                             <p>{{ c.name }}</p>
                                                         </button>
                                                     </center>
@@ -271,7 +275,7 @@
                                             </tr>
                                             <tr>
                                                 <td style="width: 100%;">
-                                                    <button type="button" class="btn btn-outline-danger btn-lg btn-block">Delete Transaction</button>
+                                                    <button  @click="deleteT(selectedT)" type="button" class="btn btn-outline-danger btn-lg btn-block" data-dismiss="modal">Delete Transaction</button>
                                                     <br>
                                                 </td>
                                             </tr>
@@ -285,7 +289,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-success btn-lg btn-block" data-dismiss="modal">Save Changes</button>
-                        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Save Changes</button> -->
                     </div>
                 </div>
             </div>
@@ -296,12 +299,12 @@
 </br>
 
 <!-- Navigation Buttons -->
-<nav class="navbar fixed-bottom navbar-light bg-light">
+<nav id="navbar" class="navbar fixed-bottom navbar-light bg-light">
     <div class="btn-group btn-group-justified" role="group" aria-label="Justified button group">
         <a class="btn btn-outline-primary" href="./index.html" role="button"><i class="fas fa-home"></i></a>
         <a class="btn btn-outline-primary" href="#" role="button"><i class="fas fa-chart-pie"></i></a>
         <a class="btn btn-outline-primary" href="#" role="button"><i class="fas fa-bullseye"></i></a>
-        <a class="btn btn-outline-primary" href="#" role="button"><i class="fas fa-plus-square"></i></a>
+        <a class="btn btn-outline-primary" href="#" role="button" @click="createT"><i class="fas fa-plus-square"></i></a>
     </div>
 </nav>
 
