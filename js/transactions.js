@@ -2,7 +2,6 @@ const API_ADDRESS = 'https://budgt.me/api/v1/'
 
 var store = {
     shared_data: {
-        posts: [],
         transactions: [
             {
                 "id": 8,
@@ -606,14 +605,8 @@ var navbar = new Vue ({
             this.transactions.unshift(t)
         }
     },
-    watch: {
-        transactions: function () {
-            transactionsByDate = []
-        }
-    },
     data: {
         transactions: store.shared_data.transactions,
-        posts: store.shared_data.posts
     }
 })
 
