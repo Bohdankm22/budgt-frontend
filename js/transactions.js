@@ -1,5 +1,8 @@
+const API_ADDRESS = 'https://budgt.me/api/v1/'
+
 var store = {
     shared_data: {
+        posts: [],
         transactions: [
             {
                 "id": 8,
@@ -587,7 +590,6 @@ var store = {
                 "category_icon": "car.png"
             }
         ],
-        // transactionsByDate: []
     }
 }
 
@@ -611,7 +613,7 @@ var navbar = new Vue ({
     },
     data: {
         transactions: store.shared_data.transactions,
-        // transactionsByDate: store.shared_data.transactionsByDate
+        posts: store.shared_data.posts
     }
 })
 
@@ -625,8 +627,14 @@ var transactions = new Vue({
     methods: {
         deleteT: function (transaction) {
             index = this.transactions.indexOf(transaction)
-            this.transactions.splice(index, 1);
+            this.transactions.splice(index, 1)
         }
+    },
+    mounted() {
+        const url = API_ADDRESS
+        axios.get(API_ADDRESS + "t").then(response => {
+            this.transactions = response.data
+        })
     },
     computed: {
         transactionsByDate() {
@@ -652,7 +660,6 @@ var transactions = new Vue({
     data: {
         selectedT: [],
         transactionValue: [],
-        // transactionsByDate: store.shared_data.transactionsByDate,
         categories: [
             {
                 name: "Honeypot",
