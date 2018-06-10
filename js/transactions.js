@@ -622,6 +622,21 @@ var transactions = new Vue({
             return value.toFixed(2);
         }
     },
+    watch: {
+        selectedT: function () {
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYW50b25kdXJhbnQiLCJhIjoiY2ppNmk4dGwxMDEzazN2bXJoM3NpOWdwcSJ9.w9YMuEPYAYkwxBvZvmhwPg';
+            var map = new mapboxgl.Map({
+                container: 'map', // container id
+                style: 'mapbox://styles/mapbox/streets-v10',
+                center: [-79.4163000, 43.7001100], // starting position
+                zoom: 2 // starting zoom
+            });
+            map.flyTo({ center: [-79.4163000, 43.7001100], zoom: 15 });
+            var marker = new mapboxgl.Marker()
+                .setLngLat([-79.4163000, 43.7001100])
+                .addTo(map);
+        }
+    },
     methods: {
         deleteT: function (transaction) {
             index = this.transactions.indexOf(transaction)
