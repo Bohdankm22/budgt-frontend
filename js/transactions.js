@@ -1,3 +1,5 @@
+const API_ADDRESS = 'https://budgt.me/api/v1/'
+
 var store = {
     shared_data: {
         transactions: [
@@ -603,11 +605,6 @@ var navbar = new Vue ({
             this.transactions.unshift(t)
         }
     },
-    watch: {
-        transactions: function () {
-            transactionsByDate = []
-        }
-    },
     data: {
         transactions: store.shared_data.transactions,
     }
@@ -623,8 +620,14 @@ var transactions = new Vue({
     methods: {
         deleteT: function (transaction) {
             index = this.transactions.indexOf(transaction)
-            this.transactions.splice(index, 1);
+            this.transactions.splice(index, 1)
         }
+    },
+    mounted() {
+        const url = API_ADDRESS
+        axios.get(API_ADDRESS + "t").then(response => {
+            this.transactions = response.data
+        })
     },
     computed: {
         transactionsByDate() {
