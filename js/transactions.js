@@ -587,7 +587,6 @@ var store = {
                 "category_icon": "car.png"
             }
         ],
-        // transactionsByDate: []
     }
 }
 
@@ -611,7 +610,6 @@ var navbar = new Vue ({
     },
     data: {
         transactions: store.shared_data.transactions,
-        // transactionsByDate: store.shared_data.transactionsByDate
     }
 })
 
@@ -620,21 +618,6 @@ var transactions = new Vue({
     filters: {
         currency(value) {
             return value.toFixed(2);
-        }
-    },
-    watch: {
-        selectedT: function () {
-            mapboxgl.accessToken = 'pk.eyJ1IjoiYW50b25kdXJhbnQiLCJhIjoiY2ppNmk4dGwxMDEzazN2bXJoM3NpOWdwcSJ9.w9YMuEPYAYkwxBvZvmhwPg';
-            var map = new mapboxgl.Map({
-                container: 'map', // container id
-                style: 'mapbox://styles/mapbox/streets-v10',
-                center: [-79.4163000, 43.7001100], // starting position
-                zoom: 2 // starting zoom
-            });
-            map.flyTo({ center: [-79.4163000, 43.7001100], zoom: 15 });
-            var marker = new mapboxgl.Marker()
-                .setLngLat([-79.4163000, 43.7001100])
-                .addTo(map);
         }
     },
     methods: {
@@ -667,7 +650,6 @@ var transactions = new Vue({
     data: {
         selectedT: [],
         transactionValue: [],
-        // transactionsByDate: store.shared_data.transactionsByDate,
         categories: [
             {
                 name: "Honeypot",
