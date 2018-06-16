@@ -191,3 +191,8 @@ label {
   color: black !important;
   font-weight: 300;
 }
+
+.spendings {
+  padding-left: 0px;
+  padding-right: 0px;
+}
