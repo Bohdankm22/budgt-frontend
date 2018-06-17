@@ -44,7 +44,7 @@
         </ol>
         <div class="carousel-inner">
             <div v-for="a in accounts" class="carousel-item" v-bind:class="accounts.indexOf(a) !== 0 ? '' : 'active'">
-                <div class="card text-white mb-3 mx-auto" v-bind:class="'bg-' + a.color" style="max-width: 75%; height: 8em;">
+                <div class="card text-white mb-3 mx-auto shadowed" v-bind:class="'bg-' + a.color" style="max-width: 75%; height: 8em;">
                     <div class="card-header">
                         <center>
                             <div class="float-left">
@@ -296,8 +296,8 @@
 <nav id="navbar" class="navbar fixed-bottom navbar-light bg-light">
     <div class="btn-group btn-group-justified" role="group" aria-label="Justified button group">
         <a class="btn btn-outline-primary" href="./index.html" role="button"><i class="fas fa-home"></i></a>
-        <a class="btn btn-outline-primary" href="#" role="button"><i class="fas fa-chart-pie"></i></a>
-        <a class="btn btn-outline-primary" href="#" role="button"><i class="fas fa-bullseye"></i></a>
+        <a class="btn btn-outline-primary" href="./spendings.html" role="button"><i class="fas fa-chart-pie"></i></a>
+        <a class="btn btn-outline-primary" href="#" role="button"><i class="fas fa-flag-checkered"></i></a>
         <a class="btn btn-outline-primary" href="#" role="button" @click="createT"><i class="fas fa-plus-square"></i></a>
     </div>
 </nav>
