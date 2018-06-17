@@ -44,7 +44,7 @@
         </ol>
         <div class="carousel-inner">
             <div v-for="a in accounts" class="carousel-item" v-bind:class="accounts.indexOf(a) !== 0 ? '' : 'active'">
-                <div class="card text-white mb-3 mx-auto" v-bind:class="'bg-' + a.color" style="max-width: 75%; height: 8em;">
+                <div class="card text-white mb-3 mx-auto shadowed" v-bind:class="'bg-' + a.color" style="max-width: 75%; height: 8em;">
                     <div class="card-header">
                         <center>
                             <div class="float-left">
