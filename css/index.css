@@ -191,3 +191,38 @@ label {
   color: black !important;
   font-weight: 300;
 }
+
+.row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.intro {
+  background-color: #533a71;
+  color: white;
+  height: 50%;
+  padding: 2.5em;
+}
+
+.feature-top {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.background-purple {
+  background-color: #533a71;
+}
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+  margin: 5rem 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -.05rem;
+}
