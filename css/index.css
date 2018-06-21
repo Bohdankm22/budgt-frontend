@@ -226,3 +226,8 @@ label {
   line-height: 1;
   letter-spacing: -.05rem;
 }
+
+.main-logo {
+  width: 12em;
+  margin-top: 1em;
+}
